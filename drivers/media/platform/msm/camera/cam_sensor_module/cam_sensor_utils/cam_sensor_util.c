@@ -831,6 +831,8 @@ int cam_sensor_util_request_gpio_table(
 
 	if (gpio_en) {
 		for (i = 0; i < size; i++) {
+			CAM_DBG(CAM_XIAOMI, "gpio request for gpio_num %d, flags %ld, label %s",
+				gpio_tbl[i].gpio, gpio_tbl[i].flags, gpio_tbl[i].label);
 			rc = cam_res_mgr_gpio_request(soc_info->dev,
 					gpio_tbl[i].gpio,
 					gpio_tbl[i].flags, gpio_tbl[i].label);
@@ -1491,6 +1493,8 @@ int msm_cam_sensor_handle_reg_gpio(int seq_type,
 	if (gpio_num_info->valid[gpio_offset] == 1) {
 		CAM_DBG(CAM_SENSOR, "VALID GPIO offset: %d, seqtype: %d",
 			 gpio_offset, seq_type);
+		CAM_DBG(CAM_XIAOMI, "set gpio_num %d 's val to %d",
+			 gpio_num_info->gpio_num[gpio_offset], val);
 		cam_res_mgr_gpio_set_value(
 			gpio_num_info->gpio_num
 			[gpio_offset], val);
@@ -1625,6 +1629,9 @@ int cam_sensor_core_power_up(struct cam_sensor_power_ctrl_t *ctrl,
 		}
 
 		CAM_DBG(CAM_SENSOR, "seq_type %d", power_setting->seq_type);
+		CAM_DBG(CAM_XIAOMI, "seq_type %d seq_val %d config_val %ld delay %d",
+			power_setting->seq_type, power_setting->seq_val,
+			power_setting->config_val, power_setting->delay);
 
 		switch (power_setting->seq_type) {
 		case SENSOR_MCLK:
@@ -1679,6 +1686,8 @@ int cam_sensor_core_power_up(struct cam_sensor_power_ctrl_t *ctrl,
 					power_setting->config_val;
 
 			for (j = 0; j < soc_info->num_clk; j++) {
+				CAM_DBG(CAM_XIAOMI, "enable %s, clk rate: %d",
+					soc_info->clk_name[j], soc_info->clk_rate[0][j]);
 				rc = cam_soc_util_clk_enable(soc_info->clk[j],
 					soc_info->clk_name[j],
 					soc_info->clk_rate[0][j]);
@@ -1735,6 +1744,8 @@ int cam_sensor_core_power_up(struct cam_sensor_power_ctrl_t *ctrl,
 			}
 			if (power_setting->seq_val < num_vreg) {
 				CAM_DBG(CAM_SENSOR, "Enable Regulator");
+				CAM_DBG(CAM_XIAOMI, "Enable Regulator %s",
+					soc_info->rgltr_name[power_setting->seq_val]);
 				vreg_idx = power_setting->seq_val;
 
 				soc_info->rgltr[vreg_idx] =
@@ -2049,6 +2060,8 @@ int cam_sensor_util_power_down(struct cam_sensor_power_ctrl_t *ctrl,
 				if (pd->seq_val < num_vreg) {
 					CAM_DBG(CAM_SENSOR,
 						"Disable Regulator");
+					CAM_DBG(CAM_XIAOMI, "Disable Regulator %s",
+						soc_info->rgltr_name[ps->seq_val]);
 					ret =  cam_soc_util_regulator_disable(
 					soc_info->rgltr[ps->seq_val],
 					soc_info->rgltr_name[ps->seq_val],
@@ -2183,6 +2196,9 @@ int cam_sensor_core_mipi_switch(struct cam_sensor_power_ctrl_t *ctrl,
 			}
 
 			CAM_DBG(CAM_SENSOR, "seq_type %d", power_setting->seq_type);
+			CAM_DBG(CAM_XIAOMI, "seq_type %d seq_val %d config_val %ld delay %d",
+					power_setting->seq_type, power_setting->seq_val,
+					power_setting->config_val, power_setting->delay);
 
 			switch (power_setting->seq_type) {
 			case SENSOR_CUSTOM_GPIO1:
@@ -2223,6 +2239,10 @@ int cam_sensor_core_mipi_switch(struct cam_sensor_power_ctrl_t *ctrl,
 			}
 
 			CAM_DBG(CAM_SENSOR, "seq_type %d", power_down_setting->seq_type);
+			CAM_DBG(CAM_XIAOMI, "seq_type %d seq_val %d config_val %ld delay %d",
+					power_down_setting->seq_type, power_down_setting->seq_val,
+					power_down_setting->config_val, power_down_setting->delay);
+
 			switch (power_down_setting->seq_type) {
 			case SENSOR_CUSTOM_GPIO1:
 			//case SENSOR_CUSTOM_GPIO2:

@@ -1734,6 +1734,7 @@ int32_t cam_cci_core_cfg(struct v4l2_subdev *sd,
 	case MSM_CCI_I2C_READ:
 		mutex_lock(&cci_dev->init_mutex);
 		rc = cam_cci_read_bytes(sd, cci_ctrl);
+		/* Added by qudao1@xiaomi.com */
 		if (rc < 0) {
 			CAM_ERR(CAM_CCI, "cam cci err %d , read, slav 0x%x on dev/master %d/%d",
 				rc, cci_ctrl->cci_info->sid << 1,
@@ -1741,6 +1742,7 @@ int32_t cam_cci_core_cfg(struct v4l2_subdev *sd,
 				cci_ctrl->cci_info->cci_i2c_master);
 		}
 		mutex_unlock(&cci_dev->init_mutex);
+		/* End of Added by qudao1@xiaomi.com */
 		break;
 	case MSM_CCI_I2C_WRITE:
 	case MSM_CCI_I2C_WRITE_SEQ:
@@ -1750,6 +1752,7 @@ int32_t cam_cci_core_cfg(struct v4l2_subdev *sd,
 	case MSM_CCI_I2C_WRITE_SYNC_BLOCK:
 		mutex_lock(&cci_dev->init_mutex);
 		rc = cam_cci_write(sd, cci_ctrl);
+		/* Added by qudao1@xiaomi.com */
 		if (rc < 0) {
 			CAM_ERR(CAM_CCI, "cam cci err %d , write type %d , slav 0x%x on dev/master %d/%d",
 				rc, cci_ctrl->cmd,
@@ -1758,6 +1761,7 @@ int32_t cam_cci_core_cfg(struct v4l2_subdev *sd,
 				cci_ctrl->cci_info->cci_i2c_master);
 		}
 		mutex_unlock(&cci_dev->init_mutex);
+		/* End of Added by qudao1@xiaomi.com */
 		break;
 	case MSM_CCI_GPIO_WRITE:
 		break;

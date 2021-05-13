@@ -139,8 +139,8 @@ struct cam_ois_ctrl_t {
 	uint8_t ois_fw_flag;
 	uint8_t is_ois_calib;
 	struct cam_ois_opcode opcode;
-	struct i2c_settings_array i2c_pre_init_data;
-	uint8_t is_ois_pre_init;
+	struct i2c_settings_array i2c_pre_init_data; //xiaomi add
+	uint8_t is_ois_pre_init; //xiaomi add
 #ifdef ENABLE_OIS_EIS
 	struct ois_data_eis_t ois_data;
 #endif

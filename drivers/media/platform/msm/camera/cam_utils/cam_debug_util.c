@@ -100,6 +100,12 @@ const char *cam_get_module_name(unsigned int module_id)
 		name = "CAM-REQ";
 		break;
 
+	/* Added by qudao1@xiaomi.com */
+	case CAM_XIAOMI:
+		name = "CAM-XIAOMI";
+		break;
+	/* End of Added by qudao1@xiaomi.com */
+
 	default:
 		name = "CAM";
 		break;

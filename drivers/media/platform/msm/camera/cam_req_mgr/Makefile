@@ -1,6 +1,6 @@
-ccflags-y += -Idrivers/media/platform/msm/camera/cam_core/
-ccflags-y += -Idrivers/media/platform/msm/camera/cam_smmu/
-ccflags-y += -Idrivers/media/platform/msm/camera/cam_utils
+ccflags-y += -Idrivers/media/platform/msm/camera_v3/cam_core/
+ccflags-y += -Idrivers/media/platform/msm/camera_v3/cam_smmu/
+ccflags-y += -Idrivers/media/platform/msm/camera_v3/cam_utils
 
 obj-$(CONFIG_SPECTRA_CAMERA) += cam_req_mgr_core.o\
 				cam_req_mgr_dev.o \
